@@ -1,21 +1,25 @@
-import math
-import numpy as np
+from forward_kinematics import forward_kinematics
+from inverse_kinematics import inverse_kinematics
+from jacobian import compute_jacobian
+from sympy import pi
 
-from posicao import posicao
-from velocidade import velocidade
+# Parâmetros iniciais
+t0, t1, d2, t3 = 0, 0, 10, pi/4
+Lg = 10
+r = 10
+alpha = pi / 4
 
-def main():
-    # Parâmetros do trajeto
-    cx = 0.5    # Posição inicial no eixo x
-    cy = 0.5    # Posição inicial no eixo y
-    d = 0.2     # Raio da trajetória
-    alfa_dot = np.pi / 2  # Velocidade angular (rad/s)
+# Cinemática Direta
+T_ef = forward_kinematics(t0, t1, d2, t3, Lg)
+print("Cinemática Direta (FK):")
+print(T_ef)
 
-    # Loop para calcular posições e velocidades
-    for alfa in np.linspace(0, 2 * np.pi, 100):  # 100 passos de 0 a 2π
-        pos_atual = posicao(alfa, cx, cy, d)
-        vel_atual = velocidade(alfa, alfa_dot, d)
-        print(f"Posição: {pos_atual}, Velocidade: {vel_atual}")
+# Cinemática Inversa
+params = inverse_kinematics(r, Lg, alpha)
+print("\nCinemática Inversa (IK):")
+print("Parâmetros articulares:", params)
 
-if __name__ == "__main__":
-    main()        
+# Jacobiano
+jacobian = compute_jacobian(params[1], params[2], params[3], Lg)
+print("\nJacobiano:")
+print(jacobian)
