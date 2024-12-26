@@ -1,6 +1,6 @@
 import math
-def velocidade(alfa, alfa_dot, d):
 
+def velocidade(alfa, alfa_dot, d):
     vx = -d * math.sin(alfa) * alfa_dot
     vy = d * (math.cos(alfa)**2 - math.sin(alfa)**2) * alfa_dot
     vz = 0  # Constante
