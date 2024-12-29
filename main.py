@@ -14,7 +14,7 @@ from jacobian import compute_jacobian
 from sympy import pi
 
 # Configuração inicial do braço
-arm = XArmAPI('192.168.x.x')  # Substituir pelo IP correto
+arm = XArmAPI('192.168.1.163')  #IP Robo com Grip
 arm.motion_enable(enable=True)
 arm.set_mode(0)
 arm.set_state(state=0)
